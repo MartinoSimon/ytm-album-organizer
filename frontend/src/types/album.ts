@@ -1,7 +1,7 @@
 
 export type Album = {
-  id: string
+  playlistId: string
   title: string 
   year?: number 
-  artist: string[]
+  artists: string[]
 }

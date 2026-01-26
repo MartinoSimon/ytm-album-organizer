@@ -9,7 +9,7 @@ export default function Library() {
 
   const [status, setStatus] = useState<LoadStatus>("idle");
   const [error, setError] = useState<string | null>(null);
-  const [albums, setAlbums] = useState<unknown[]>([]);
+  const [albums, setAlbums] = useState<Album[]>([]);
 
  async function loadAlbums() {
     setStatus("loading");
@@ -26,7 +26,11 @@ export default function Library() {
     }
   }
 
-  useEffect(() => {loadAlbums()},[])
+  useEffect(() => {
+    const t = setTimeout(() => void loadAlbums(), 0);
+    return () => clearTimeout(t);
+  }, []);
+  // useEffect(() => {loadAlbums()},[])
 
   return (
     <div>
@@ -44,8 +48,8 @@ export default function Library() {
         {status === "success" && albums.length > 0 && (
           <ul>
             {albums.map((a) => (
-              <li key={a.id}>
-                <strong>{a.title}</strong> — {a.artist.join(", ")}
+              <li key={a.playlistId}>
+                <strong>{a.title}</strong> — {a.artists.join(", ")}
                 {a.year !== null ? ` (${a.year})` : ""}
               </li>
             ))}
