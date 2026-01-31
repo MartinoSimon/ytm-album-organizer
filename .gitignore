@@ -22,3 +22,8 @@ backend/data/browser.json
 *.db
 *.sqlite
 *.sqlite3
+
+## --- Local
+backend/data/browser.json
+backend/data/oauth.json
+backend/.env
