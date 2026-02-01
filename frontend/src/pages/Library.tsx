@@ -3,7 +3,7 @@ import type { Album } from "../types/album";
 import { getAlbums, syncAlbums } from "../api/album";
 
 type LoadStatus = "idle" | "loading" | "success" | "error";
-type SortKey = "added_at" | "title" | "year" | "artist" ;
+type SortKey = "title" | "year" | "artist" ;
 type SortDir = "asc" | "desc";
 
 
@@ -76,8 +76,7 @@ export default function Library() {
       unsortedAlbums.sort((a,b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()) * dir);
     } else if (sortKey == "artist") {
       unsortedAlbums.sort((a,b) => a.artists.join(" ").toLowerCase().localeCompare(b.artists.join(" ").toLowerCase()) * dir)
-    }
-    else if (sortKey == "year") {
+    } else if (sortKey == "year") {
       unsortedAlbums.sort((a,b) => {
         if (a.year == null){
           if (b.year == null) {
@@ -101,12 +100,21 @@ function renderAlbums(albums: Album[]) {
 
   return (
     <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-      {sorted.map((a) => (
-        <li key={a.playlistId} style={{ margin: "8px 0" }}>
-          <strong>{a.title}</strong> — {a.artists.join(", ")}
-          {a.year !== null ? ` (${a.year})` : ""}
-        </li>
-      ))}
+      {sorted.map((a) => {
+        const ytmURL = "https://music.youtube.com/playlist?list=" + a.playlistId;
+        return (<li>
+  <a
+    className="albumItem"
+    href={"https://music.youtube.com/playlist?list=" + a.playlistId}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <strong>{a.title}</strong> — {a.artists.join(", ")}
+    {a.year !== null ? ` (${a.year})` : ""}
+  </a>
+</li>)
+
+})}
     </ul>
   );
 }
@@ -129,7 +137,6 @@ function renderAlbums(albums: Album[]) {
         <option value="artist">Artists</option>
         <option value="title">Album</option>
         <option value="year">Year</option>
-        <option value="added_at">Added at</option>
       </select>
 
       <label htmlFor="sortDir">Order</label>
@@ -149,8 +156,7 @@ function renderAlbums(albums: Album[]) {
       </div>
 
     <button onClick={loadAlbums} disabled={status === "loading" || syncing}>
-      {status === "loading" ? "Refreshing..." : "Refresh"}
-    </button>
+      {status === "loading" ? "Refreshing..." : "Refresh"}</button>
 
     <button
       onClick={handleSync}
