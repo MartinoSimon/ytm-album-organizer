@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS albums(
     artists_json TEXT NOT NULL,
     year INTEGER,
     genre TEXT,
-    added_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    browse_id TEXT,
+    cover_url TEXT
 );
 
 CREATE INDEX IF NOT EXISTS idx_albums_added_at ON albums(added_at);

@@ -2,10 +2,16 @@ from fastapi import FastAPI
 from app.routers.sync import router as sync_router
 from app.routers.health import router as health_router
 from app.routers.albums import router as albums_router
+from app.db.database import init_db
+from contextlib import asynccontextmanager
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_db()     # crea tabla + aplica migraciones (ALTER TABLE si faltan cols)
+    yield
 
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 
 @app.get("/ping")
 def ping():

@@ -4,4 +4,6 @@ export type Album = {
   title: string 
   year?: number 
   artists: string[]
+  browseId?: string | null 
+  coverUrl?: string | null
 }

@@ -40,3 +40,9 @@ def init_db() -> None:
 
     with get_conn() as conn:
         conn.executescript(schema_sql)
+        rows = conn.execute("PRAGMA table_info(albums)").fetchall()
+        existing_cols = {r[1] for r in rows}
+        if "browse_id" not in existing_cols:
+            conn.execute("ALTER TABLE albums ADD COLUMN browse_id TEXT")
+        if "cover_url" not in existing_cols:
+            conn.execute("ALTER TABLE albums ADD COLUMN cover_url TEXT")

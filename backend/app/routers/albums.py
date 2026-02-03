@@ -9,7 +9,7 @@ def list_albums():
     with get_conn() as conn:
         rows = conn.execute(
             """
-            SELECT playlist_id, title, artists_json, year
+            SELECT playlist_id, title, artists_json, year, browse_id, cover_url
             FROM albums
             ORDER BY added_at DESC
             """
@@ -22,6 +22,8 @@ def list_albums():
             "title": r["title"],
             "artists": json.loads(r["artists_json"]) if r["artists_json"] else [],
             "year": r["year"],
+            "browseId": r["browse_id"],
+            "coverUrl": r["cover_url"],
         })
 
     return albums

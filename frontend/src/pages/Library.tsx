@@ -105,12 +105,26 @@ function renderAlbums(albums: Album[]) {
         return (<li>
   <a
     className="albumItem"
-    href={"https://music.youtube.com/playlist?list=" + a.playlistId}
+    href={ytmURL}
     target="_blank"
     rel="noopener noreferrer"
   >
+    <img
+              src={a.coverUrl ?? ""}
+              loading="lazy"
+              alt={`${a.title} cover`}
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: 8,
+                marginRight: 12,
+                objectFit: "cover",
+                verticalAlign: "middle",
+              }}
+            />
     <strong>{a.title}</strong> — {a.artists.join(", ")}
     {a.year !== null ? ` (${a.year})` : ""}
+    
   </a>
 </li>)
 
