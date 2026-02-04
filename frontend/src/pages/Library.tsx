@@ -98,14 +98,24 @@ function renderAlbums(albums: Album[]) {
   const filtered = filterAlbums(albums);
   const sorted = sortAlbums(filtered);
 
+function getYtmAlbumUrl(a: { playlistId: string; browseId?: string | null }) {
+  if (a.browseId) return `https://music.youtube.com/browse/${a.browseId}`;
+
+  // fallback si en tu DB playlistId a veces es browseId (por el pid = playlistId or browseId)
+  if (a.playlistId?.startsWith("OLAK")) {
+    return `https://music.youtube.com/playlist?list=${a.playlistId}`;
+  }
+  return `https://music.youtube.com/browse/${a.playlistId}`;
+}
+  
+
   return (
     <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
       {sorted.map((a) => {
-        const ytmURL = "https://music.youtube.com/playlist?list=" + a.playlistId;
         return (<li>
   <a
     className="albumItem"
-    href={ytmURL}
+    href={getYtmAlbumUrl(a)}
     target="_blank"
     rel="noopener noreferrer"
   >
