@@ -13,3 +13,7 @@ CREATE TABLE IF NOT EXISTS albums(
 
 CREATE INDEX IF NOT EXISTS idx_albums_added_at ON albums(added_at);
 CREATE INDEX IF NOT EXISTS idx_albums_year ON albums(year);
+
+CREATE TABLE IF NOT EXISTS album_enrichment (
+    
+)

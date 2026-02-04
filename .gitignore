@@ -1,29 +1,25 @@
-# ---- OS ----
+# ---- OS / Editor ----
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/
 
 # ---- Python ----
-__pycache__/
-*.pyc
-.venv/
-venv/
-.env
+**/__pycache__/
+**/*.py[cod]
+**/.venv/
+**/venv/
+**/.env
+**/.env.*
+**/*.sqlite
+**/*.sqlite3
+**/*.db
 
 # ---- Node / Vite ----
-frontend/node_modules/
-frontend/dist/
+**/node_modules/
+**/dist/
+**/.vite/
+**/*.log
 
-# ---- Logs ----
-*.log
-
-# ---- Local data (SQLite, cache) ----
-backend/data/
-backend/data/browser.json
-*.db
-*.sqlite
-*.sqlite3
-
-## --- Local
-backend/data/browser.json
-backend/data/oauth.json
+# ---- Backend env  ----
 backend/.env

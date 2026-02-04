@@ -148,9 +148,6 @@ function getYtmAlbumUrl(a: { playlistId: string; browseId?: string | null }) {
   return (
     <div>
       <h1>Library</h1>
-      <button onClick={loadAlbums} disabled={status === "loading"}>
-        {status === "loading" ? "Refreshing..." : "Refresh"}
-      </button>
 
       <label htmlFor="query">Query by name of Artists, Album, Year</label>
       <input type="text" id="query" name="query" value={query} 
@@ -169,6 +166,14 @@ function getYtmAlbumUrl(a: { playlistId: string; browseId?: string | null }) {
           <option value="desc">Descending</option>
       </select>
 
+      <button
+      onClick={handleSync}
+      disabled={syncing || status === "loading"}
+      style={{ marginLeft: 8 }}>
+      {syncing ? "Syncing..." : "Sync"}
+    </button>
+        {syncMsg && <p>{syncMsg}</p>}
+        
       <div style={{ marginTop: 12 }}>
         {status === "loading" && <p>Loading...</p>}
 
@@ -179,16 +184,7 @@ function getYtmAlbumUrl(a: { playlistId: string; browseId?: string | null }) {
         {status === "success" && albums.length > 0 && renderAlbums(albums)}
       </div>
 
-    <button onClick={loadAlbums} disabled={status === "loading" || syncing}>
-      {status === "loading" ? "Refreshing..." : "Refresh"}</button>
-
-    <button
-      onClick={handleSync}
-      disabled={syncing || status === "loading"}
-      style={{ marginLeft: 8 }}>
-      {syncing ? "Syncing..." : "Sync"}
-    </button>
-        {syncMsg && <p>{syncMsg}</p>}
+    
     </div>
   );
 }
