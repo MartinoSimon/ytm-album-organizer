@@ -1,4 +1,4 @@
-# ytm-album-organizer
+# Youtube Music Album Organizer
 
 Local-first web app to view your saved YouTube Music albums, search/sort/filter them, cache covers in SQLite, and open each album in YouTube Music in one click.
 
