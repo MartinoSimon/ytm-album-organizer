@@ -45,7 +45,7 @@ def main():
         pass
 
     # 2) Poll token endpoint
-    print("\n2) Esperando autorización en Google (polling)...")
+    print("\n2) Waiting for Google Authorization (polling)...")
     sleep_s = interval
 
     while time.time() < deadline:

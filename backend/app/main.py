@@ -8,7 +8,7 @@ from contextlib import asynccontextmanager
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    init_db()     # crea tabla + aplica migraciones (ALTER TABLE si faltan cols)
+    init_db()     
     yield
 
 app = FastAPI(lifespan=lifespan)
@@ -32,10 +32,8 @@ FRONTEND_DIST = BACKEND_DIR.parent / "frontend" / "dist"  # .../frontend/dist
 if FRONTEND_DIST.exists():
     app.mount("/", StaticFiles(directory=str(FRONTEND_DIST), html=True), name="ui")
 
-    # fallback SPA (para rutas del front)
     @app.get("/{full_path:path}")
     def spa_fallback(full_path: str):
         if full_path.startswith("api/"):
-            # si alguien pegó mal una ruta /api, que devuelva 404 real
             return {"detail": "Not Found"}
         return FileResponse(str(FRONTEND_DIST / "index.html"))

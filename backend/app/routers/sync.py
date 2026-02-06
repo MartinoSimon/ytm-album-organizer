@@ -50,7 +50,6 @@ async def sync_albums():
             title = a.get("title") or ""
             artists = [x.get("name") for x in a.get("artists", []) if x.get("name")]
             year = a.get("year")
-            # year puede venir como string; lo normalizamos a int si se puede
             try:
                 year_int = int(year) if year is not None else None
             except (TypeError, ValueError):
